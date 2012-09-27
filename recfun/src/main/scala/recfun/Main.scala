@@ -27,15 +27,16 @@ object Main {
   def balance(chars: List[Char]): Boolean = {
     //1.throw away non ( or ) chars
     val filtered = chars.filter((a)=> ( a.toString=="(" | a.toString==")") )
-    if(filtered.length==0) return true
-    if(filtered.length%2 != 0){
-      return false
-    }else{
-      //2.take out adjacent "()" pairs,pass to next
-      val tmpString = filtered.mkString
-      val braceIndex = tmpString.indexOf("()")
-      val nextLoop = filtered.take(braceIndex) ++ filtered.takeRight(filtered.length-braceIndex-2)
-      return balance(nextLoop.toList)
+    if(filtered.length==0) true else{
+	    if(filtered.length%2 != 0){
+	      false
+	    }else{
+	      //2.take out adjacent "()" pairs,pass to next
+	      val tmpString = filtered.mkString
+	      val braceIndex = tmpString.indexOf("()")
+	      val nextLoop = filtered.take(braceIndex) ++ filtered.takeRight(filtered.length-braceIndex-2)
+	      balance(nextLoop.toList)
+	    }
     }
   }
 

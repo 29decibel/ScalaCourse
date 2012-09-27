@@ -41,6 +41,22 @@ object Main {
 
   /**
    * Exercise 3
+   * minus myself , pass left to others
    */
-  def countChange(money: Int, coins: List[Int]): Int = {3}
+  def countChange(money: Int, coins: List[Int]): Int = {
+    val sortedCoins = coins.sortWith((a,b)=>a < b)
+    //no money , no coin, then 1
+    if(money==0) return 1
+    if(sortedCoins.length==0) return 0
+    //has money and coins
+    val head = sortedCoins.head
+    val ways = money/head
+    if(ways==0) return 0
+    var counts = 0
+    for(num <- 1 to ways){
+       counts += countChange(money-num*head,sortedCoins.tail)
+     }
+    //plus no extra combines
+    counts + countChange(money,sortedCoins.tail)
+  }
 }
